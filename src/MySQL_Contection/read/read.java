@@ -40,9 +40,5 @@ public class read {
 			System.out.println("Error al conectarse a la BBDD");
 			e.printStackTrace();
 		}
-		
-		
-
 	}
-
 }
