@@ -10,10 +10,9 @@ public class read {
 
 	public static void main(String[] args) {
 		String host="localhost";
-		String BBDD="prueba";
+		String BBDD="gestor_tareas";
 		String user="root";
 		String password="";
-		
 		
 		try {
 			//Cargar libreria
@@ -25,7 +24,14 @@ public class read {
 			Statement st = conexion.createStatement();
 			
 			//Ejecutar st y recibir
-			ResultSet rs = st.executeQuery("");
+			ResultSet rs = st.executeQuery("select * from tareas");
+			
+			while(rs.next()) {
+				System.out.print(rs.getInt("id")+" ");
+				System.out.print(rs.getString("titulo")+" ");
+				System.out.print(rs.getString("descripcion")+" ");
+				System.out.println("");
+			}
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al importar liberira");
@@ -34,6 +40,7 @@ public class read {
 			System.out.println("Error al conectarse a la BBDD");
 			e.printStackTrace();
 		}
+		
 		
 
 	}
