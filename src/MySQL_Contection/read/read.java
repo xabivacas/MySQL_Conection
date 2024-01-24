@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class read {
 
@@ -13,10 +14,12 @@ public class read {
 	private static String BBDD="gestor_tareas";
 	private static String USER="root";
 	private static String PASSWORD="";
+	private static Scanner scan = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
 		ArrayList<Tarea> tareas = new ArrayList<>();
+		String select="";
 		
 		try {
 			//Cargar libreria
@@ -27,8 +30,11 @@ public class read {
 			//Crear Statement
 			Statement st = conexion.createStatement();
 			
+			System.out.println("Inserte un id");
+			select=scan.nextLine();
+			
 			//Ejecutar st y recibir
-			ResultSet rs = st.executeQuery("select * from tareas");
+			ResultSet rs = st.executeQuery("select * from tareas where id="+select);
 			
 	
 		

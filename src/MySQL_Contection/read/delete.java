@@ -6,41 +6,44 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class delete {
 	private static String HOST="localhost";
 	private static String BBDD="gestor_tareas";
 	private static String USER="root";
 	private static String PASSWORD="";
+	private static Scanner scan = new Scanner(System.in);
 	
 	public static void main(String[] args) {
-		ArrayList<Tarea> tareas = new ArrayList<>();
+		
+		String select="";
 		
 		try {
 			//Cargar libreria
-			Class.forName("com.mysql.cj.jdbc.Driver");
+				Class.forName("com.mysql.cj.jdbc.Driver");
 			//Crear conexion
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://"+HOST+"/"+BBDD,USER,PASSWORD);
+				Connection conexion = DriverManager.getConnection("jdbc:mysql://"+HOST+"/"+BBDD,USER,PASSWORD);
 			
 			//Crear Statement
-			Statement st = conexion.createStatement();
+				Statement st = conexion.createStatement();
 			
-			//Ejecutar st y recibir
-			ResultSet rs = st.executeQuery("select * from tareas");
-			
-	
-		
-			while(rs.next()) {
+			//Pedir datos y ejecutar query
+				System.out.println("Inserte id para borrar");
+				select=scan.nextLine();
+				ResultSet rs = st.executeQuery("select * from tareas where id="+select);
+				
+			//Mirar si hay alguien con ese id
+				if(rs.next()) {
 				Tarea t = new Tarea();
 				t.setId(rs.getInt("id"));
 				t.setTitulo(rs.getString("titulo"));
 				t.setDescripcion(rs.getString("descripcion"));
-				tareas.add(t);
-			}
-			for(Tarea t:tareas) {
-				System.out.println(t.toString());
-			}
 			
+				//Borrar la tupla
+					st.execute("DELETE FROM tareas WHERE ID="+select);
+					System.out.println(t.toString()+" ha sido eliminado");
+			}			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al importar liberira");
 			e.printStackTrace();
