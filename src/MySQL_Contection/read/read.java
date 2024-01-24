@@ -5,20 +5,24 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class read {
 
+	private static String HOST="localhost";
+	private static String BBDD="gestor_tareas";
+	private static String USER="root";
+	private static String PASSWORD="";
+	
 	public static void main(String[] args) {
-		String host="localhost";
-		String BBDD="gestor_tareas";
-		String user="root";
-		String password="";
+		
+		ArrayList<Tarea> tareas = new ArrayList<>();
 		
 		try {
 			//Cargar libreria
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			//Crear conexion
-			Connection conexion = DriverManager.getConnection("jdbc:mysql://"+host+"/"+BBDD,user,password);
+			Connection conexion = DriverManager.getConnection("jdbc:mysql://"+HOST+"/"+BBDD,USER,PASSWORD);
 			
 			//Crear Statement
 			Statement st = conexion.createStatement();
@@ -26,11 +30,16 @@ public class read {
 			//Ejecutar st y recibir
 			ResultSet rs = st.executeQuery("select * from tareas");
 			
+	
+		
 			while(rs.next()) {
 				Tarea t = new Tarea();
 				t.setId(rs.getInt("id"));
 				t.setTitulo(rs.getString("titulo"));
 				t.setDescripcion(rs.getString("descripcion"));
+				tareas.add(t);
+			}
+			for(Tarea t:tareas) {
 				System.out.println(t.toString());
 			}
 			
