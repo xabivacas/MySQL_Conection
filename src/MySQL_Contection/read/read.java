@@ -27,10 +27,11 @@ public class read {
 			ResultSet rs = st.executeQuery("select * from tareas");
 			
 			while(rs.next()) {
-				System.out.print(rs.getInt("id")+" ");
-				System.out.print(rs.getString("titulo")+" ");
-				System.out.print(rs.getString("descripcion")+" ");
-				System.out.println("");
+				Tarea t = new Tarea();
+				t.setId(rs.getInt("id"));
+				t.setTitulo(rs.getString("titulo"));
+				t.setDescripcion(rs.getString("descripcion"));
+				System.out.println(t.toString());
 			}
 			
 		} catch (ClassNotFoundException e) {

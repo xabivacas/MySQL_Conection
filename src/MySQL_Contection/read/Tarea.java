@@ -23,5 +23,9 @@ public class Tarea {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public String toString() {
+		return "Tarea: "+this.id+", "+this.titulo+", "+this.descripcion;
+		
+	}
 	
 }
