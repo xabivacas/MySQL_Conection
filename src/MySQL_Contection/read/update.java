@@ -19,7 +19,7 @@ public class update {
 		String id="";
 		String titulo="";
 		String descripcion="";
-		int count=0;
+		int cont=0;
 		
 		try {
 			//Cargar libreria
@@ -41,8 +41,8 @@ public class update {
 				descripcion=scan.nextLine();
 				
 				String sql="UPDATE tareas SET titulo='"+titulo+"',descripcion='"+descripcion+"' WHERE id="+id;
-				count = st.executeUpdate(sql);
-				System.out.println("Se han modificado: "+count);
+				cont = st.executeUpdate(sql);
+				System.out.println("Se han modificado: "+cont);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al importar liberira");
 			e.printStackTrace();
