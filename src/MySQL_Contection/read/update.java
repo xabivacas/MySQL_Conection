@@ -34,6 +34,19 @@ public class update {
 				System.out.println("Inserte el id de la tarea que quiere cambiar");
 				id=scan.nextLine();
 				
+				ResultSet rs = st.executeQuery("select * from tareas where id="+id);
+				
+				if(rs.next()) {
+					Tarea t = new Tarea();
+					t.setId(rs.getInt("id"));
+					t.setTitulo(rs.getString("titulo"));
+					t.setDescripcion(rs.getString("descripcion"));
+					System.out.println(t.toString());
+					
+				}else {
+					System.out.println("Id no encontrado");
+				}
+				
 				System.out.println("Inserte el titulo nuevo");
 				titulo=scan.nextLine();
 				
@@ -43,6 +56,7 @@ public class update {
 				String sql="UPDATE tareas SET titulo='"+titulo+"',descripcion='"+descripcion+"' WHERE id="+id;
 				cont = st.executeUpdate(sql);
 				System.out.println("Se han modificado: "+cont);
+				
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al importar liberira");
 			e.printStackTrace();
