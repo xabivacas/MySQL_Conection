@@ -2,6 +2,7 @@ package MySQL_Contection.read;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,9 +27,6 @@ public class create {
 			//Crear conexion
 				Connection conexion = DriverManager.getConnection("jdbc:mysql://"+HOST+"/"+BBDD,USER,PASSWORD);
 			
-			//Crear Statement
-				Statement st = conexion.createStatement();
-			
 			//Pedir datos y ejecutar query
 				System.out.println("Inserte titulo");
 				titulo=scan.nextLine();
@@ -36,9 +34,14 @@ public class create {
 				System.out.println("Inserte la descripcion");
 				descripcion=scan.nextLine();
 				
-				String sql="INSERT INTO tareas(titulo, descripcion) VALUES ('"+titulo+"','"+descripcion+"')";
-				st.execute(sql);
+				String sql="INSERT INTO tareas(titulo, descripcion) VALUES (?,?)";
+				PreparedStatement pst = conexion.prepareStatement(sql);
+				pst.setString(1, titulo);
+				pst.setString(2, descripcion);
+				pst.execute();
+				
 				System.out.println("Insert completado");
+				
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al importar liberira");
 			e.printStackTrace();

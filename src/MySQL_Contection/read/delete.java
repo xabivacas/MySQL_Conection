@@ -26,9 +26,6 @@ public class delete {
 			//Crear conexion
 				Connection conexion = DriverManager.getConnection("jdbc:mysql://"+HOST+"/"+BBDD,USER,PASSWORD);
 			
-			//Crear Statement
-				Statement st = conexion.createStatement();
-			
 			//Pedir datos y ejecutar query
 				System.out.println("Inserte id para borrar");
 				select=scan.nextLine();
