@@ -2,6 +2,7 @@ package MySQL_Contection.read;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,7 +32,12 @@ public class delete {
 			//Pedir datos y ejecutar query
 				System.out.println("Inserte id para borrar");
 				select=scan.nextLine();
-				ResultSet rs = st.executeQuery("select * from tareas where id="+select);
+				
+				String sqlRead = "select * from tareas where id= ?";
+				PreparedStatement pst= conexion.prepareStatement(sqlRead);
+				pst.setString(1,select);
+				
+				ResultSet rs = pst.executeQuery();
 				
 			//Mirar si hay alguien con ese id
 				if(rs.next()) {
@@ -39,10 +45,14 @@ public class delete {
 				t.setId(rs.getInt("id"));
 				t.setTitulo(rs.getString("titulo"));
 				t.setDescripcion(rs.getString("descripcion"));
-			
+
 				//Borrar la tupla
-					st.execute("DELETE FROM tareas WHERE ID="+select);
-					System.out.println(t.toString()+" ha sido eliminado");
+					String sqlDelete="DELETE FROM tareas WHERE ID= ?";
+					pst= conexion.prepareStatement(sqlDelete);
+					pst.setString(1,select);
+					pst.execute();
+					
+					System.out.println(t.toString()+" Ha sido borrado");
 			}			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error al importar liberira");
