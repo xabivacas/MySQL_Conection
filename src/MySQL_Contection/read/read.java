@@ -2,6 +2,7 @@ package MySQL_Contection.read;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,8 +34,12 @@ public class read {
 			System.out.println("Inserte un id");
 			select=scan.nextLine();
 			
+			String sql ="select * from tareas where id= ?";
+			PreparedStatement pst= conexion.prepareStatement(sql);
+			pst.setString(1,select);
+			
 			//Ejecutar st y recibir
-			ResultSet rs = st.executeQuery("select * from tareas where id="+select);
+			ResultSet rs = pst.executeQuery();
 			
 	
 		
